@@ -13,6 +13,10 @@ def buildUCD90160Data(ucd90160_data):
 
     ucd90160_config = []
 
+    for device in ucd90160_data:
+        print("Device:")
+        print(device)
+
     return ucd90160_config
 
 if __name__ == '__main__':
@@ -35,6 +39,9 @@ if __name__ == '__main__':
 
     with open(args.input_yaml, 'r') as ucd90160_input:
         ucd90160_data = yaml.safe_load(ucd90160_input) or {}
+
+    print("DEBUG")
+    print(ucd90160_data)
 
     ucd90160_config = buildUCD90160Data(ucd90160_data)
 
