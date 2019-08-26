@@ -24,6 +24,11 @@ AS_IF([test "$HAVE_LINUX_GPIO_H" != ""],
     AC_SUBST([BT_BMC_DL],[`mkdir -p linux;wget https://raw.githubusercontent.com/torvalds/linux/master/include/uapi/linux/gpio.h -O linux/gpio.h`])
 )
 
+# We need the header only CLI library
+AC_CHECK_HEADERS([CLI/CLI.hpp],[],
+    [AC_MSG_ERROR([Could not find CLI11 CLI/CLI.hpp])]
+)
+
 PKG_CHECK_MODULES([SDBUSPLUS], [sdbusplus])
 PKG_CHECK_MODULES([SDEVENTPLUS], [sdeventplus])
 PKG_CHECK_MODULES([PHOSPHOR_LOGGING], [phosphor-logging])
@@ -107,5 +112,5 @@ AC_DEFINE_UNQUOTED([INPUT_HISTORY_SENSOR_ROOT],
                    [The D-Bus power sensors namespace root])
 
 # Create configured output
-AC_CONFIG_FILES([Makefile power-sequencer/Makefile power-supply/Makefile test/Makefile power-supply/test/Makefile])
+AC_CONFIG_FILES([Makefile power-sequencer/Makefile power-supply/Makefile phosphor-power-supply/Makefile test/Makefile power-supply/test/Makefile])
 AC_OUTPUT
