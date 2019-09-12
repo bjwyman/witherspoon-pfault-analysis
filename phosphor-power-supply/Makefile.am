@@ -5,7 +5,8 @@ bin_PROGRAMS = \
 	phosphor-psu-monitor
 
 phosphor_psu_monitor_SOURCES = \
-	main.cpp
+	main.cpp \
+	psu_manager.cpp
 
 phosphor_psu_monitor_CXXFLAGS = \
 	$(SDBUSPLUS_CFLAGS) \
@@ -17,4 +18,3 @@ phosphor_psu_monitor_LDADD = \
 	$(SDBUSPLUS_LIBS) \
 	$(PHOSPHOR_LOGGING_LIBS) \
 	${PHOSPHOR_DBUS_INTERFACES_LIBS}
-

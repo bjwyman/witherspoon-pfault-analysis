@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 #include <CLI/CLI.hpp>
-#include <iostream>
+#include <sdbusplus/bus.hpp>
+#include <sdeventplus/event.hpp>
 
 int main(int argc, char* argv[])
 {
@@ -27,6 +28,13 @@ int main(int argc, char* argv[])
 
     // Read the arguments.
     CLI11_PARSE(app, argc, argv);
+
+    auto bus = sdbusplus::bus::new_default();
+    auto event = sdeventplus::Event::get_default();
+
+    // Attach the event object to the bus object so we can
+    // handle both sd_events (for the timers) and dbus signals.
+    bus.attach_event(event.get(), SD_EVENT_PRIORITY_NORMAL);
 
     rc = 0;
 
